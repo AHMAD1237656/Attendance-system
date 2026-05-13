@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Attendance Records</h2>
+    <table border="1">
+        <tr>
+            <th>Employee</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.employee.name }}</td>
+            <td>{{ record.date }}</td>
+            <td>{{ record.status }}</td>
+            <td>
+                {% if user.groups.all.0.name == "HR_Manager" %}
+                <a href="{% url 'update_attendance' record.id %}">Edit</a> |
+                <a href="{% url 'delete_attendance' record.id %}">Delete</a>
+                {% endif %}
+
+                <!-- <a href="{% url 'update_attendance' record.id %}">Edit</a>
+                <a href="{% url 'delete_attendance' record.id %}">Delete</a> -->
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</body>
+
+</html>
